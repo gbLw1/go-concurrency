@@ -1,9 +1,9 @@
-package main
+package concurrency
 
 import (
 	"encoding/json"
 	"fmt"
-	"go-concurrency/models"
+	"go-concurrency/pkg/models"
 	"net/http"
 	"sync"
 	"time"
@@ -30,7 +30,8 @@ func fetchPublicApis(ch chan<- *models.DogApiResponse, wg *sync.WaitGroup) {
 	ch <- &data // register the result in the channel
 }
 
-func main() {
+func RunConcurrency() {
+	println("Running concurrency operation...")
 	startTime := time.Now()
 
 	ch := make(chan *models.DogApiResponse)

@@ -1,10 +1,10 @@
-package main
+package noConcurrency
 
 import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go-concurrency/models"
+	"go-concurrency/pkg/models"
 	"net/http"
 	"time"
 )
@@ -27,7 +27,9 @@ func fetchPublicApis() (*models.DogApiResponse, error) {
 	return &data, nil
 }
 
-func main() {
+func RunNoConcurrency() {
+	println("Running NO concurrency operation...")
+
 	startTime := time.Now()
 
 	for i := 0; i < 20; i++ {
@@ -40,5 +42,5 @@ func main() {
 		fmt.Printf("Fetched %d time(s) -> response: %s\n", i+1, data.Message)
 	}
 
-	fmt.Printf("\nNO concurrency operation took: %v", time.Since(startTime))
+	fmt.Printf("\nNO concurrency operation took: %v\n\n", time.Since(startTime))
 }
