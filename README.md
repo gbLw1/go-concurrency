@@ -24,7 +24,7 @@ run no concurrency fetch before to see how long it takes:
 go run .\cmd\no-concurrency\main.go
 ```
 
-and then run the concurrency one which runs requests in parallel with [Go routines](https://golang.org/pkg/runtime/#Goroutine):
+and then run the concurrency one which runs requests in parallel
 
 ```sh
 go run .\cmd\concurrency\main.go
