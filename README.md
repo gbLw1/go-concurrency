@@ -12,7 +12,7 @@ For this test I'm using the [`Dog API`](https://dog.ceo/dog-api/) to fetch 20 ra
 
 Running the following command will run the normal fetching code (one by one) and then the concurrency code (in parallel).
 
-ps: Each one of them shows the time it took to fetch the images
+ps: Each one of them shows the time it took to complete the requests.
 
 ```sh
 go run .\cmd\main.go
