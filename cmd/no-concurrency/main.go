@@ -15,13 +15,13 @@ func fetchPublicApis() (*models.DogApiResponse, error) {
 	url := "https://dog.ceo/api/breeds/image/random"
 	resp, err := http.Get(url)
 	if err != nil {
-		return nil, errors.New("error fetching the APIs")
+		return nil, errors.New("error fetching the API -> status code: " + resp.Status)
 	}
 
 	defer resp.Body.Close()
 
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
-		return nil, errors.New("error decoding APIs")
+		return nil, errors.New("error decoding response body -> status code: " + resp.Status)
 	}
 
 	return &data, nil
@@ -30,10 +30,10 @@ func fetchPublicApis() (*models.DogApiResponse, error) {
 func main() {
 	startTime := time.Now()
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 20; i++ {
 		data, err := fetchPublicApis()
 		if err != nil {
-			fmt.Printf("Something went wrong: %s", err)
+			fmt.Println(err)
 			return
 		}
 

@@ -15,7 +15,7 @@ func fetchPublicApis(ch chan<- *models.DogApiResponse, wg *sync.WaitGroup) {
 	url := "https://dog.ceo/api/breeds/image/random"
 	resp, err := http.Get(url)
 	if err != nil {
-		fmt.Printf("Error fetching the APIs (status code: %s)", resp.Status)
+		fmt.Printf("Error fetching the API (status code: %s)", resp.Status)
 		return
 	}
 
@@ -23,7 +23,7 @@ func fetchPublicApis(ch chan<- *models.DogApiResponse, wg *sync.WaitGroup) {
 
 	var data models.DogApiResponse
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
-		fmt.Printf("Error decoding APIs (status code: %s)\n", resp.Status)
+		fmt.Printf("Error decoding response body (status code: %s)\n", resp.Status)
 		return
 	}
 
@@ -36,7 +36,7 @@ func main() {
 	ch := make(chan *models.DogApiResponse)
 	var wg sync.WaitGroup
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 20; i++ {
 		wg.Add(1)                   // add a goroutine
 		go fetchPublicApis(ch, &wg) // fetch with a goroutine
 	}

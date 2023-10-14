@@ -1,14 +1,6 @@
 # Go Concurrency
 
-Testing out the Go main feature.
-
-## Concurrency
-
-Golang is known for several key features, but one of its most notable features is its strong support for concurrent and parallel programming.
-
-Go provides built-in support for goroutines, which are lightweight threads, and channels for communication between goroutines.
-
-This makes it easy to write highly concurrent and efficient code, which is particularly useful for developing concurrent network servers, distributed systems, and other applications that require handling many tasks concurrently.
+Testing out the Go most notable feature: concurrency.
 
 ## Overview
 
