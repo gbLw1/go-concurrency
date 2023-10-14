@@ -9,21 +9,21 @@ import (
 	"time"
 )
 
-func fetchPublicApis(ch chan<- *models.PublicApiResponse, wg *sync.WaitGroup) {
+func fetchPublicApis(ch chan<- *models.DogApiResponse, wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	url := "https://api.publicapis.org/entries"
+	url := "https://dog.ceo/api/breeds/image/random"
 	resp, err := http.Get(url)
 	if err != nil {
-		fmt.Println("Error fetching the APIs")
+		fmt.Printf("Error fetching the APIs (status code: %s)", resp.Status)
 		return
 	}
 
 	defer resp.Body.Close()
 
-	var data models.PublicApiResponse
+	var data models.DogApiResponse
 	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
-		fmt.Println("Error decoding APIs")
+		fmt.Printf("Error decoding APIs (status code: %s)\n", resp.Status)
 		return
 	}
 
@@ -33,7 +33,7 @@ func fetchPublicApis(ch chan<- *models.PublicApiResponse, wg *sync.WaitGroup) {
 func main() {
 	startTime := time.Now()
 
-	ch := make(chan *models.PublicApiResponse)
+	ch := make(chan *models.DogApiResponse)
 	var wg sync.WaitGroup
 
 	for i := 0; i < 10; i++ {
@@ -52,9 +52,9 @@ func main() {
 	for result := range ch {
 		i++
 		if result != nil {
-			fmt.Printf("Fetched %d time(s) -> APIs count: %d\n", i, result.Count)
+			fmt.Printf("Fetched %d time(s) -> response: %s\n", i, result.Message)
 		}
 	}
 
-	fmt.Printf("Concurrency operation took: %v\n\n", time.Since(startTime))
+	fmt.Printf("\nConcurrency operation took: %v", time.Since(startTime))
 }

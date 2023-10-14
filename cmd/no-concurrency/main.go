@@ -9,10 +9,10 @@ import (
 	"time"
 )
 
-func fetchPublicApis() (*models.PublicApiResponse, error) {
-	var data models.PublicApiResponse
+func fetchPublicApis() (*models.DogApiResponse, error) {
+	var data models.DogApiResponse
 
-	url := "https://api.publicapis.org/entries"
+	url := "https://dog.ceo/api/breeds/image/random"
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, errors.New("error fetching the APIs")
@@ -37,8 +37,8 @@ func main() {
 			return
 		}
 
-		fmt.Printf("Fetched %d time(s) -> APIs count: %d\n", i+1, data.Count)
+		fmt.Printf("Fetched %d time(s) -> response: %s\n", i+1, data.Message)
 	}
 
-	fmt.Printf("NO concurrency operation took: %v\n\n", time.Since(startTime))
+	fmt.Printf("\nNO concurrency operation took: %v", time.Since(startTime))
 }
